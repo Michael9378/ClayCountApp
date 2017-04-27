@@ -2,7 +2,7 @@
     $FORM STYLES
 \*------------------------------------*/
 
-input {
+input, select {
 	width: 100%;
 }
 
@@ -38,4 +38,8 @@ input {
 
 #teamsHome_teamList_CSV {
 	display: none;
+}
+#scorerEntry_scoreEntry_shooterScore{
+	height: 42px; /* button height match*/
+	padding: 0 $pad;
 }

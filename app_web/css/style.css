@@ -71,6 +71,11 @@
   display: block;
   color: white; }
 
+.hit-wrapper {
+  margin-top: 0; }
+  .hit-wrapper .hit_button {
+    padding: 5.58px 0; }
+
 /*********** scss/global/containers ***********/
 /*------------------------------------*\
     $CONTAINER STYLES
@@ -140,13 +145,20 @@ section {
   margin-bottom: 44.64px; }
 
 #welcomeScreen {
-  background-color: #cba852; }
+  background-color: #cba852;
+  background-image: url("../img/welcome-background.jpeg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover; }
+
+#eventViewScores_teamScores, #eventViewScores_shooterScores {
+  display: none; }
 
 /************** scss/global/forms **************/
 /*------------------------------------*\
     $FORM STYLES
 \*------------------------------------*/
-input {
+input, select {
   width: 100%; }
 
 .form-group .form-control {
@@ -171,6 +183,11 @@ input {
 
 #teamsHome_teamList_CSV {
   display: none; }
+
+#scorerEntry_scoreEntry_shooterScore {
+  height: 42px;
+  /* button height match*/
+  padding: 0 11.16px; }
 
 /************** scss/global/footer **************/
 /*------------------------------------*\

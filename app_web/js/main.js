@@ -37,6 +37,8 @@ var cur_team;
 var cur_person;
 var cur_station;
 var cur_scorer;
+var spectatorEventId = "";
+var ajax_flag;
 
 // function queue to hold update calls when no internet
 var functionQueue = getLocalVar( "functionQueue" );
@@ -138,8 +140,86 @@ function formSubmitHandler(){
 				// send event to db for creation
 				importTeams( this );
 				break;
+			case "eventSelect_eventID":
+				// send event to db for creation
+				spectatorEventId = $( this ).find("input[name='event_id']").val();
+				updateEventLeaderboard( spectatorEventId );
+				break;
 		}
 	});
+}
+
+function updateEventLeaderboard( event_id ){
+	toast("Loading...");
+	// ajax call to get scores by shooters
+	$.ajax({
+		url: url + "get/person/get_final_scores_ordered.php?shooters=true&event_id=" + event_id,
+		success: function( result ){
+			// what to do with result from api call
+			result = JSON.parse( result );
+			populateShooterLeaderboard( result );
+	  },
+	  // error function can stay same for all calls.
+	  error: function( jqXHR, textStatus, errorThrown ){
+	  	// if status is not zero, we have an error we didn't expect
+	  	if( jqXHR.status ) {
+	  		alert( textStatus + " " + jqXHR.status + " " + errorThrown );
+	  	}
+	  	// if status is zero, no internet
+	  	else {
+	  		alert( "No internet connection, cannot update event info at this time." );
+	  	}
+	  }
+	});
+	// ajax call to get scores by teams
+	$.ajax({
+		url: url + "get/person/get_final_scores_ordered.php?teams=true&event_id=" + event_id,
+		success: function( result ){
+			// what to do with result from api call
+			result = JSON.parse( result );
+			populateTeamLeaderboard( result );
+	  },
+	  // error function can stay same for all calls.
+	  error: function( jqXHR, textStatus, errorThrown ){
+	  	// if status is not zero, we have an error we didn't expect
+	  	if( jqXHR.status ) {
+	  		alert( textStatus + " " + jqXHR.status + " " + errorThrown );
+	  	}
+	  	// if status is zero, no internet
+	  	else {
+	  		alert( "No internet connection, cannot update event info at this time." );
+	  	}
+	  }
+	});
+	setTimeout( function(){
+		navToSection("#eventViewScores");
+	}, 1000 );
+}
+
+function populateShooterLeaderboard( shooters ){
+	var html = "";
+	for( var i = 0; i < shooters.length; i++ ){
+		html += '<hr>';
+		html += '<div class="col-sm-6">';
+		html += '<h3>'+ shooters[i].first_name + ' ' + shooters[i].last_name +'</h3>';
+		html += '<h4>'+ shooters[i].team_name +'</h4>';
+		html += '<p><strong>Score: </strong>'+ shooters[i].final_tally +'</p>';
+		html += '<p><strong>Gauge: </strong>'+ shooters[i].gauge +'</p>';
+		html += '</div>';
+	}
+	$("#eventViewScores_shooterScores").html( html );
+}
+
+function populateTeamLeaderboard( teams ){
+	var html = "";
+	for( var i = 0; i < teams.length; i++ ){
+		html += '<hr>';
+		html += '<div class="col-sm-6">';
+		html += '<h3>'+ teams[i].team_name +'</h3>';
+		html += '<p><strong>Score: </strong>'+ teams[i].team_tally +'</p>';
+		html += '</div>';
+	}
+	$("#eventViewScores_teamScores").html( html );
 }
 
 // grab all event info that correlates with the admin email passed
@@ -1371,6 +1451,7 @@ function updateEventHomeSection( this_event ){
 	// create html string for events section
 	var html = "";
   html += '<div class="col-sm-6"><h3>' + this_event.name + '</h3></div>';
+  html += '<div class="col-sm-6"><p><strong>Event ID: </strong>' + this_event.id + '</p></div>';
   html += '<div class="col-sm-6"><p><strong>Start Date: </strong>' + this_event.start_date + '</p></div>';
   html += '<div class="col-sm-6"><p><strong>End Date: </strong>' + this_event.end_date + '</p></div>';
   html += '<div class="col-sm-6"><p><strong>Location: </strong>' + this_event.location + '</p></div>';
@@ -1594,7 +1675,7 @@ function updateShooterSelect(){
 	}
 	html += '</select>';
 	html += '</div>';
-	$("#stationInfo").html("Clays: " + cur_station.total_hits);
+	$("#stationInfo").html("Total Clays: " + cur_station.total_hits);
 	$("#scorerEntry_stationList").html(html);
 	enableEventHandlers();
 }

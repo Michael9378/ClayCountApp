@@ -73,4 +73,12 @@ section {
 // welcome screen home page
 #welcomeScreen {
   background-color: $secondary-light;
+  background-image: url("../img/welcome-background.jpeg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#eventViewScores_teamScores, #eventViewScores_shooterScores {
+  display: none;
 }
