@@ -1,0 +1,41 @@
+/*------------------------------------*\
+    $FORM STYLES
+\*------------------------------------*/
+
+input {
+	width: 100%;
+}
+
+.form-group {
+	.form-control {
+		border-radius: 0;
+		&:focus{
+			border-color: $primary-color;
+	    outline: 0;
+	    -webkit-box-shadow: 0 0 3px $secondary-dark;
+	    box-shadow: 0 0 3px $secondary-dark;
+		}
+	}
+}
+
+.form-group {
+	h3 {
+		letter-spacing: 3px;
+		text-transform: uppercase;
+
+		font-size: 16px;
+	}
+	label {
+		letter-spacing: 3px;
+		text-transform: uppercase;
+		font-weight: normal;
+		font-size: 16px;
+	}
+	.form-control {
+		font-size: 18px;
+	}
+}
+
+#teamsHome_teamList_CSV {
+	display: none;
+}

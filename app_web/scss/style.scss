@@ -1,0 +1,43 @@
+// Genrics are used for Sass/Css setup purposes
+// All mixins are found here
+@import "scss/config/mixins";
+// All font imports done here
+@import "scss/config/fonts";
+// All variables are found here
+@import "scss/config/variables";
+
+/************************************************/
+/**************** Global Classes ****************/
+/************************************************/
+
+/************** scss/global/buttons-icons **************/
+// contains buttons and icons
+@import "scss/global/buttons-icons";
+/*********** scss/global/containers ***********/
+// takes care of all general containers and blocks
+@import "scss/global/containers";
+/************** scss/global/forms **************/
+// contains base styles for all form and search bars on site
+@import "scss/global/forms";
+/************** scss/global/footer **************/
+// takes care of all footer specific styling
+@import "scss/global/footer";
+/************** scss/global/header **************/
+// takes care of positioning and such in the header
+@import "scss/global/header";
+/************** scss/global/helpers **************/
+// takes care of basic classes such as colors, shading, sizes and positions
+@import "scss/global/helpers";
+/************* scss/global/reset *************/
+// resets all base styles
+@import "scss/global/reset";
+/************* scss/global/sidebar *************/
+// contains styling for sidebar only
+@import "scss/global/sidebar";
+/************** scss/global/text **************/
+// contains text resets for all text elements
+@import "scss/global/text";
+
+/*************************************************/
+/****************** Junk-Drawer ******************/
+/*************************************************/

@@ -1,0 +1,76 @@
+/*------------------------------------*\
+    $CONTAINER STYLES
+\*------------------------------------*/
+
+section {
+	display: none;
+	padding-top: 40px; /* pad for top menu bar */
+}
+
+.nav-holder {
+  position: relative;
+  margin: $pad 0;
+  padding: $pad;
+  border: 1px solid $secondary-dark;
+  cursor: pointer;
+  transition: all .3s;
+  &:before{
+    transition: all .3s;
+    content: ' ';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 2px;
+    border: 1px solid $secondary-dark;
+    pointer-events: none;
+  }
+  &:hover{
+    background-color: $secondary-dark;
+    color: white;
+    * {
+      color:white;
+    }
+    &:before{
+      border-color: white;
+    }
+  }
+  h3 {
+    margin-top: 0;
+  }
+}
+
+#toaster {
+  position: fixed;
+  display: none;
+  bottom: 2*$pad;
+  left: 50%;
+  @include transform( translate(-50%) );
+  border: 1px solid $secondary-dark;
+  padding: $pad;
+  background: $white;
+  box-shadow: 3px 5px 10px $grey;
+  &:before{
+    content: ' ';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 2px;
+    border: 1px solid $secondary-dark;
+    pointer-events: none;
+  }
+}
+
+.logo-icon-container {
+  text-align: center;
+  padding-top: 2*$pad;
+  margin-bottom: 4*$pad;
+}
+
+// welcome screen home page
+#welcomeScreen {
+  background-color: $secondary-light;
+}

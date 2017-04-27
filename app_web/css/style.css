@@ -1,0 +1,357 @@
+/*------------------------------------*\
+    $MIXINS
+\*------------------------------------*/
+/* CSS Transition
+	Usage: @include transition(width,0.3s,ease-out);
+ */
+/*------------------------------------*\
+    $FONTS
+\*------------------------------------*/
+/************************************************/
+/**************** Global Classes ****************/
+/************************************************/
+/************** scss/global/buttons-icons **************/
+/*------------------------------------*\
+    $BUTTONS AND ICONS
+\*------------------------------------*/
+.btn, .button, button, input[type='submit'] {
+  width: 100%;
+  border: 1px solid;
+  border-color: #9E2A2B;
+  border-radius: 0;
+  padding: 11.16px 0;
+  color: #2E2F2F;
+  background: white;
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  line-height: 1.24;
+  transition: all .3s; }
+  .btn.small, .button.small, button.small, input[type='submit'].small {
+    border: 0;
+    padding: 5px; }
+
+.btn-wrap {
+  margin-top: 11.16px;
+  border: 1px solid #9E2A2B;
+  padding: 2px;
+  transition: all .3s; }
+  .btn-wrap:hover {
+    background: #9E2A2B; }
+    .btn-wrap:hover .btn, .btn-wrap:hover .button, .btn-wrap:hover button, .btn-wrap:hover input[type='submit'] {
+      background: #9E2A2B;
+      border-color: white;
+      color: white; }
+
+.button-back {
+  padding-top: 6px;
+  padding-bottom: 5px;
+  display: block; }
+  .button-back i.fa {
+    color: white; }
+  .button-back:hover i.fa {
+    color: white; }
+
+.button-login {
+  background-color: white;
+  text-transform: uppercase;
+  font-size: 35px;
+  border: 1px solid #9a9a9a;
+  margin: 11.16px 0; }
+  .button-login span {
+    display: block;
+    text-transform: none;
+    font-style: italic;
+    color: #9a9a9a;
+    font-size: 16px;
+    font-weight: bold; }
+
+.button-create-account {
+  text-align: center;
+  margin-top: 20px;
+  display: block;
+  color: white; }
+
+/*********** scss/global/containers ***********/
+/*------------------------------------*\
+    $CONTAINER STYLES
+\*------------------------------------*/
+section {
+  display: none;
+  padding-top: 40px;
+  /* pad for top menu bar */ }
+
+.nav-holder {
+  position: relative;
+  margin: 11.16px 0;
+  padding: 11.16px;
+  border: 1px solid #9E2A2B;
+  cursor: pointer;
+  transition: all .3s; }
+  .nav-holder:before {
+    transition: all .3s;
+    content: ' ';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 2px;
+    border: 1px solid #9E2A2B;
+    pointer-events: none; }
+  .nav-holder:hover {
+    background-color: #9E2A2B;
+    color: white; }
+    .nav-holder:hover * {
+      color: white; }
+    .nav-holder:hover:before {
+      border-color: white; }
+  .nav-holder h3 {
+    margin-top: 0; }
+
+#toaster {
+  position: fixed;
+  display: none;
+  bottom: 22.32px;
+  left: 50%;
+  /* transform mixin */
+  -webkit-transform: translate(-50%);
+  -moz-transform: translate(-50%);
+  -ms-transform: translate(-50%);
+  -o-transform: translate(-50%);
+  transform: translate(-50%);
+  border: 1px solid #9E2A2B;
+  padding: 11.16px;
+  background: #FFFDF7;
+  box-shadow: 3px 5px 10px #9a9a9a; }
+  #toaster:before {
+    content: ' ';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 2px;
+    border: 1px solid #9E2A2B;
+    pointer-events: none; }
+
+.logo-icon-container {
+  text-align: center;
+  padding-top: 22.32px;
+  margin-bottom: 44.64px; }
+
+#welcomeScreen {
+  background-color: #cba852; }
+
+/************** scss/global/forms **************/
+/*------------------------------------*\
+    $FORM STYLES
+\*------------------------------------*/
+input {
+  width: 100%; }
+
+.form-group .form-control {
+  border-radius: 0; }
+  .form-group .form-control:focus {
+    border-color: #540A0D;
+    outline: 0;
+    -webkit-box-shadow: 0 0 3px #9E2A2B;
+    box-shadow: 0 0 3px #9E2A2B; }
+
+.form-group h3 {
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 16px; }
+.form-group label {
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: normal;
+  font-size: 16px; }
+.form-group .form-control {
+  font-size: 18px; }
+
+#teamsHome_teamList_CSV {
+  display: none; }
+
+/************** scss/global/footer **************/
+/*------------------------------------*\
+    $FOOTER STYLES
+\*------------------------------------*/
+/************** scss/global/header **************/
+/*------------------------------------*\
+    $HEADER
+\*------------------------------------*/
+.header-bar {
+  position: fixed;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 40px;
+  background: #540A0D;
+  color: #FFFDF7; }
+  .header-bar .nav-button {
+    float: right;
+    padding: 11px 15px;
+    cursor: pointer; }
+  .header-bar .mobile-menu {
+    display: none;
+    list-style: none;
+    padding: 0;
+    margin-top: 40px;
+    /* offset header height */
+    padding-bottom: 0;
+    margin-bottom: 0;
+    background: #cba852; }
+  .header-bar .nav-item {
+    padding: 5.58px 11.16px;
+    border-top: 1px solid #FFFDF7;
+    cursor: pointer; }
+    .header-bar .nav-item.hide_login {
+      display: none; }
+    .header-bar .nav-item a {
+      color: #FFFDF7; }
+
+.header_backButton {
+  top: 5.5px;
+  z-index: 10;
+  position: fixed;
+  display: inline-block !important; }
+  .header_backButton button {
+    margin: 0; }
+
+/************** scss/global/helpers **************/
+/*------------------------------------*\
+    $HELPER CLASSES
+\*------------------------------------*/
+.no-pad {
+  padding: 0 !important; }
+
+.no-margin {
+  margin: 0 !important; }
+
+.padding {
+  padding: 11.16px; }
+
+.padding-lr {
+  padding-left: 11.16px;
+  padding-right: 11.16px; }
+
+.margin-top {
+  margin-top: 22.32px; }
+
+.margin-bottom {
+  margin-bottom: 22.32px; }
+
+.text-right {
+  text-align: right !important; }
+
+.text-center {
+  text-align: center !important; }
+
+.relative {
+  position: relative !important; }
+
+.absolute {
+  position: absolute !important; }
+
+.bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0; }
+
+hr.spacer {
+  width: 100%;
+  height: 1px;
+  margin-top: 11.16px;
+  margin-bottom: 11.16px;
+  border-top: none; }
+
+.top-spacer {
+  padding-top: 20px; }
+
+.vert-center {
+  position: absolute;
+  top: 50%;
+  /* transform mixin */
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%); }
+
+.flex-xs {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex; }
+
+@media (min-width: 768px) {
+  .flex-sm {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex; } }
+
+@media (min-width: 992px) {
+  .flex-md {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex; } }
+
+@media (min-width: 1200px) {
+  .flex-lg {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex; } }
+
+/************* scss/global/reset *************/
+/*------------------------------------*\
+    $ELEMENT BASES
+\*------------------------------------*/
+body, p {
+  color: #2E2F2F;
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  line-height: 1.24; }
+
+strong {
+  font-weight: 600; }
+
+a {
+  cursor: pointer; }
+
+h1 {
+  text-transform: uppercase;
+  font-size: 25px; }
+
+h3 {
+  font-size: 20px; }
+
+section {
+  padding-bottom: 22.32px;
+  min-height: 100vh; }
+
+/************* scss/global/sidebar *************/
+/*------------------------------------*\
+    $SIDEBAR
+\*------------------------------------*/
+/************** scss/global/text **************/
+/*------------------------------------*\
+    $TEXT STYLES
+\*------------------------------------*/
+.heading-main {
+  font-weight: 400;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold; }
+  .heading-main.white {
+    color: white; }
+
+/*************************************************/
+/****************** Junk-Drawer ******************/
+/*************************************************/
+
+/*# sourceMappingURL=style.css.map */

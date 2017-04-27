@@ -1,0 +1,63 @@
+//------------------------------------\\
+//  $VARIABLES
+//------------------------------------\\
+
+
+//	------------------------------------
+//	COLORS
+$white 			: #FFFDF7;
+$lighter-grey	: #EEE;
+$light-grey : #DDD;
+$grey 			: #9a9a9a;
+$dark-grey 	: #666;
+$darker-grey: #333;
+$black 			: #2E2F2F;
+$dim 				: rgba(0,0,0,0.5);
+$lit 				: rgba(255,255,255,0.5);
+$clear			: rgba(0,0,0,0);
+
+$success		: #3c763d;
+$info				: #31708f;
+$warning		: #8a6d3b;
+$error			: #a94442;
+
+$primary-color 		: #540A0D;
+
+$secondary-light 	: #cba852;
+$secondary-dark 	: #9E2A2B;
+
+$tert-light 			: #FFF3B0;
+$tert-dark 				: #335C67;
+
+$border-color			: #000;
+
+
+//	------------------------------------
+//	TYPOGRAPHY
+$font-family	: 'Roboto', sans-serif;
+$font-size		: 18px;
+$font-aspect	: 1.24;
+$line-height	:	$font-size*$font-aspect;
+$font-color		: $black;
+
+
+//	------------------------------------
+//	SPACING
+$pad 					: $line-height/2;
+$border-width	: 2px;
+$gutter				: 15px;
+
+
+//	------------------------------------
+//	Other Variables
+
+//	Boostrap break points
+$screen-xs-min	: 480px;
+$screen-sm-min	: 768px;
+$screen-md-min	: 992px;
+$screen-lg-min	: 1200px;
+
+//	transition speeds
+$fast 				: 0.25s;
+$normal-speed	: 0.4s;
+$slow					: 0.7s;

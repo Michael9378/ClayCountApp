@@ -1,0 +1,53 @@
+/*------------------------------------*\
+    $HEADER
+\*------------------------------------*/
+
+.header-bar {
+	position: fixed;
+	z-index: 5;
+	top: 0;
+	left: 0;
+	width: 100%;
+	min-height: 40px;
+	background: $primary-color;
+	color: $white;
+
+	.nav-button {
+		float: right;
+		padding: 11px 15px;
+		cursor: pointer;
+	}
+
+	.mobile-menu {
+		display: none;
+	  list-style: none;
+    padding: 0;
+    margin-top: 40px; /* offset header height */
+    padding-bottom: 0;
+    margin-bottom: 0;
+    background: $secondary-light;
+	}
+
+	.nav-item {
+	  padding: $pad/2 $pad;
+	  border-top: 1px solid $white;
+	  cursor: pointer;
+	  &.hide_login {
+	  	display: none;
+	  }
+	  a {
+	  	color: $white;
+	  }
+	}
+
+}
+
+.header_backButton {
+	top: 5.5px;
+	z-index: 10;
+	position: fixed;
+	display: inline-block!important;
+  button {
+  	margin: 0;
+  }
+}

@@ -1,0 +1,51 @@
+/*------------------------------------*\
+    $MIXINS
+\*------------------------------------*/
+
+/* CSS Transition
+	Usage: @include transition(width,0.3s,ease-out);
+ */
+@mixin transition($transition-property, $transition-time, $method:null) {
+	/* transition mixin */
+	-webkit-transition: $transition-property $transition-time $method;
+	-moz-transition: 		$transition-property $transition-time $method;
+	-ms-transition: 		$transition-property $transition-time $method;
+	-o-transition: 			$transition-property $transition-time $method;
+	transition: 				$transition-property $transition-time $method;
+}
+
+@mixin transform($transform-functions) {
+	/* transform mixin */
+	-webkit-transform: 	$transform-functions;
+	-moz-transform: 		$transform-functions;
+	-ms-transform: 			$transform-functions;
+	-o-transform: 			$transform-functions;
+	transform: 					$transform-functions;
+}
+
+@mixin gradient($gradient-prop, $gradient-val, $extras:null) {
+	/* gradient mixin */
+	#{$gradient-prop}: linear-gradient(#{$gradient-val}), $extras;
+  #{$gradient-prop}: -moz-linear-gradient(#{$gradient-val}), $extras;
+  #{$gradient-prop}: -o-linear-gradient(#{$gradient-val}), $extras;
+  #{$gradient-prop}: -ms-linear-gradient(#{$gradient-val}), $extras;
+  #{$gradient-prop}: -webkit-linear-gradient(#{$gradient-val}), $extras;
+}
+
+@mixin flex {
+	/* flex mixin */
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+}
+
+// Functional mixins
+// bootstrapify takes in a class name and a list of properties and values
+// it makes bootstrap size equivelant class with -xs, -sm, -md, and -lg appended to the classname
+@mixin bootstrapify($class, $prop-val-list) {
+		.#{$class}-xs { @each $item in $prop-val-list {#{nth($item, 1)}: nth($item, 2); }}
+	    .#{$class}-sm { @media (min-width: $screen-sm-min) {@each $item in $prop-val-list {#{nth($item, 1)}: nth($item, 2); }} }
+	    .#{$class}-md { @media (min-width: $screen-md-min) {@each $item in $prop-val-list {#{nth($item, 1)}: nth($item, 2); }} }
+	    .#{$class}-lg { @media (min-width: $screen-lg-min) {@each $item in $prop-val-list {#{nth($item, 1)}: nth($item, 2); }} }
+}

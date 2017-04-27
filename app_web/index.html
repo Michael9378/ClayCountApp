@@ -1,0 +1,1012 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Clay Count</title>
+  <meta name="description" content="Clay Count application for tracking clay tournaments">
+  <meta name="author" content="Michael Scott">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body>
+
+  <header class="header-bar">
+    <div class="nav-button"><i class="fa fa-bars" aria-hidden="true"></i></div>
+    <ul id="header_mainMenu" class="mobile-menu">
+      <li class="nav-item hide_login"><a data-nav="#myEvents">Home</a></li>
+      <li class="nav-item hide_login hide_scorer"><a data-nav="#adminEdit">Edit My Info</a></li>
+      <li class="nav-item hide_login hide_admin"><a data-nav="#scorerEdit">Edit My Info</a></li>
+      <li class="nav-item hide_scorer hide_admin"><a data-nav="#welcomeScreen">Login</a></li>
+      <li class="nav-item"><a data-nav="#helpPage">Help</a></li>
+      <li class="nav-item"><a onclick="logOut()">Log Out</a></li>
+    </ul>
+  </header>
+
+  <!-- sections are the screens -->
+
+  <!--
+  Userflow
+    Scorer
+      -scorer login
+        -my events
+          -scorer entry
+    Admin
+      -admin login
+      -create admin
+      -add scorer
+        -view events
+        -create events
+          -view teams
+          -import teams
+          -create teams
+            -view shooters
+            -add shooters
+    View Scores
+      -current events
+        -top shooters
+        -top teams
+        -all teams
+          -view shooters
+  -->
+
+  <section id="welcomeScreen">
+    <!-- I am admin/scorer -->
+    <div class="container">
+      <div class="logo-icon-container">
+     <img class="logo-icon" src="img/CC_Logo_Small_clear.png" alt="">
+     </div>
+      <h1 class="heading-main white">Welcome to Clay Count</h1>
+      <div class="row">
+
+        <div class="col-sm-6">
+          <button class="button-login" data-nav="#adminLogin">Admins<span>I am managing an event.</span></button>
+        </div>
+
+        <div class="col-sm-6">
+          <button class="button-login" data-nav="#scorerLogin">Scorers<span>I am scoring an event.</span></button>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="col-sm-6 col-sm-offset-3">
+          <a data-nav="#adminRegister" class="button-create-account">Create Admin Account</a>
+        </div>
+
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </section>
+
+  <section id="adminLogin">
+  <div class="col-xs-3 col-sm-1 header_backButton">
+    <!--<button data-nav="#welcomeScreen" class="small"><<</button>-->
+    <a data-nav="#welcomeScreen" class="button-back"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+  </div>
+    <!-- Login/Create account -->
+    <div class="container">
+      <h1>Admin Login</h1>
+      <div class="row">
+        <form id="adminLogin_loginForm">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <input type="email" placeholder="Email" class="form-control" name="email" required>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <input type="password" placeholder="Password" class="form-control" name="password">
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-sm-offset-6">
+            <div class="btn-wrap">
+              <input type="submit" name="Login" value="Login">
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </section>
+
+  <section id="adminRegister">
+  <div class="col-xs-3 col-sm-1 header_backButton">
+    <!--<button data-nav="#welcomeScreen" class="small"><<</button>-->
+    <a data-nav="#welcomeScreen" class="button-back"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+  </div>
+    <!-- register screen for admins -->
+    <div class="container">
+      <h1>Admin Register</h1>
+      <div class="row">
+        <form id="adminRegister_register">
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="first_name">First Name</label>
+              <input type="text" placeholder="First Name" class="form-control" name="first_name" required>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="last_name">Last Name</label>
+              <input type="text" placeholder="Last Name" class="form-control" name="last_name" required>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" placeholder="Email" class="form-control" name="email" required>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="phone" placeholder="Phone" class="form-control" name="phone" required>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" placeholder="Password" class="form-control" name="password" required>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="password_confirm">Confirm Password</label>
+              <input type="password" placeholder="Confirm Password" class="form-control" name="password_confirm" required>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-sm-offset-6">
+            <div class="btn-wrap">
+            <input type="submit" class="form-control" name="Create" value="Create">
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </section>
+
+  <section id="adminEdit">
+  <div class="col-xs-3 col-sm-1 header_backButton">
+    <!--<button data-nav="#myEvents" class="small"><<</button></div>-->
+    <a data-nav="#myEvents" class="button-back"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+  </div>
+    <!-- register screen for admins -->
+    <div class="container">
+      <h1>Update Info</h1>
+      <p>Blank rows will not be updated when you submit</p>
+      <div class="row">
+        <form id="adminEdit_update">
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="first_name">First Name</label>
+              <input type="text" placeholder="First Name" class="form-control" name="first_name">
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="last_name">Last Name</label>
+              <input type="text" placeholder="Last Name" class="form-control" name="last_name">
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" placeholder="Email" class="form-control" name="email" required disabled>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="phone" placeholder="Phone" class="form-control" name="phone">
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" placeholder="Password" class="form-control" name="password">
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="password_confirm">Confirm Password</label>
+              <input type="password" placeholder="Confirm Password" class="form-control" name="password_confirm">
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-sm-offset-6">
+            <div class="btn-wrap">
+              <input type="submit" name="Update" value="Update">
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </section>
+
+  <section id="myEvents">
+    <!-- List of events and create event here. -->
+    <div class="container">
+      <h1>My Events</h1>
+      <div class="row" id="myEvents_eventList">
+        <div class="col-sm-6"><p>No Events Found</p></div>
+      </div>
+      <div class="btn-wrap btn-wrap hide_scorer"><button data-nav="#createEvent">Create Event</button></div>
+    </div>
+    <div class="clearfix"></div>
+  </section>
+
+  <section id="createEvent">
+    <div class="col-xs-3 col-sm-1 header_backButton">
+      <!--<button data-nav="#myEvents" class="small"><<</button></div>-->
+      <a data-nav="#myEvents" class="button-back"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+    </div>
+    <div class="clearfix"></div>
+    <div class="container">
+      <h1>Create Event</h1>
+
+
+
+      <form id="createEvent_eventInfo">
+
+        <div class="row">
+          <div class="col-sm-6">
+
+          <!--  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+  </div>-->
+            <div class="form-group">
+              <label for="name">*Event Name</label>
+              <input type="text" class="form-control" placeholder="Event Name" name="name" required>
+            </div>
+
+          </div>
+
+          <div class="col-sm-6">
+          <!--bottom spacing -->
+            <div class="form-group">
+              <label for="start_date">*Event Date</label>
+              <input type="date" class="form-control" placeholder="Start Date" name="start_date" max="" required>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="end_date">End Date</label>
+              <input type="date" class="form-control" placeholder="End Date" name="end_date" min="" required>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="location">Event Address</label>
+              <input type="text" class="form-control" placeholder="Event Address" name="location" required>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="gauge_list">List of Gauges</label>
+              <input type="text" class="form-control" placeholder="List, of, Gauges" name="gauge_list" required>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="num_stations" min="1" max="50" value="1">Max Mulligans:</label>
+              <input type="number" class="form-control" name="max_mulligans" required>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="num_stations">Number of Stations:</label>
+              <input type="number" class="form-control" min="1" max="50" value="1" name="num_stations" id="createEvent_eventInfo_numStations" required>
+            </div>
+          </div>
+        </div>
+
+        <h3>Station Details</h3>
+        <div class="row" id="createEvent_eventInfo_stationDetails">
+
+        </div>
+        <div class="row">
+          <input id="createEvent_eventInfo_adminEmail" type="hidden" placeholder="admin_email" name="admin_email">
+          <div class="col-sm-6 col-sm-offset-6">
+            <div class="btn-wrap">
+              <input type="submit" name="Create" value="Create" disabled>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    <div class="clearfix"></div>
+  </section>
+
+  <section id="editEvent">
+    <div class="col-xs-3 col-sm-1 header_backButton"><button data-nav="#myEvents" class="small"><<</button></div>
+    <div class="clearfix"></div>
+    <div class="container">
+      <h1>Update Event</h1>
+      <form id="editEvent_eventInfo">
+
+        <div class="row">
+          <div class="col-sm-6">
+            <label for="name">Event Name</label>
+            <input type="text" placeholder="Event Name" name="name">
+          </div>
+
+          <div class="col-sm-6">
+            <label for="start_date">Start Date</label>
+            <input type="date" placeholder="Start Date" name="start_date" max="">
+          </div>
+
+          <div class="col-sm-6">
+            <label for="end_date">End Date</label>
+            <input type="date" placeholder="End Date" name="end_date" min="">
+          </div>
+
+          <div class="col-sm-6">
+            <label for="location">Event Address</label>
+            <input type="text" placeholder="Event Address" name="location">
+          </div>
+
+          <div class="col-sm-6">
+            <label for="gauge_list">List of Gauges</label>
+            <input type="text" placeholder="List of Gauges" name="gauge_list">
+          </div>
+
+          <div class="col-sm-6">
+            <label for="num_stations" min="1" max="50" value="1">Max Mulligans:</label>
+            <input type="number" name="max_mulligans">
+          </div>
+
+          <input type="hidden" name="event_id">
+          <div class="col-sm-6 col-sm-offset-6">
+            <div class="btn-wrap">
+              <input type="submit" name="Update" value="Update">
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-sm-offset-6">
+            <div class="btn-wrap"><a class="btn" onclick="deleteEvent();">Delete Event</a></div>
+          </div>
+
+        </div>
+      </form>
+    <div class="clearfix"></div>
+  </section>
+
+  <section id="eventHome">
+    <!-- Display the Basic info, event code, edit event, archive, ect -->
+    <div class="col-xs-3 col-sm-1 header_backButton">
+      <!--<button data-nav="#myEvents" class="small">&lt;&lt;</button></div>-->
+      <a data-nav="#myEvents" class="button-back"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+    </div>
+    <div class="clearfix"></div>
+    <div class="container">
+      <h1>Event Home</h1>
+      <div class="row" id="eventHome_eventContainer">
+      </div>
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-3 hide_scorer">
+          <div class="btn-wrap btn-wrap"><button data-nav="#teamsHome">View Teams</button></div>
+        </div>
+        <div class="col-sm-6 col-sm-offset-3 hide_scorer">
+          <div class="btn-wrap btn-wrap"><button data-nav="#scorerList">View Scorers</button></div>
+        </div>
+        <div class="col-sm-6 col-sm-offset-3 hide_scorer">
+          <div class="btn-wrap btn-wrap"><button data-nav="#editEvent">Edit Event</button></div>
+        </div>
+        <div class="col-sm-6 col-sm-offset-3 hide_admin">
+          <div class="btn-wrap btn-wrap"><button data-nav="#scorerStations">Score Event</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </section>
+
+  <section id="teamsHome">
+    <!-- Edit team stuff. click for shooters. -->
+    <div class="col-xs-3 col-sm-1 header_backButton">
+      <!--<button data-nav="#eventHome" class="small"><<</button></div>-->
+      <a data-nav="#eventHome" class="button-back"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+    </div>
+    <div class="clearfix"></div>
+    <div class="container">
+      <h1>Teams</h1>
+      <div class="row" id="teamsHome_teamList">
+        <div class="col-sm-6"><p>No Teams Found</p></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="btn-wrap btn-wrap"><button data-nav="#createTeam">Create Team</button></div>
+        </div>
+        <div class="col-sm-6">
+          <div class="btn-wrap btn-wrap"><button onclick="$('#teamsHome_teamList_CSV').slideToggle(700)">Import Teams from CSV</button></div>
+        </div>
+        <div class="clearfix"></div>
+        <form id="teamsHome_teamList_CSV">
+          <div class="col-sm-6 top-spacer">
+            <label>Teams CSV</label>
+            <div class="form-group">
+              <input type="file" name="teamCSV" accept=".csv">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <div class="btn-wrap">
+                <input type="submit" value="Import">
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </section>
+
+  <section id="createTeam">
+    <!-- Edit team stuff. click for shooters. -->
+    <div class="col-xs-3 col-sm-1 header_backButton">
+      <!--<button data-nav="#teamsHome" class="small"><<</button></div>-->
+      <a data-nav="#teamsHome" class="button-back"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+    </div>
+    <div class="clearfix"></div>
+    <div class="container">
+      <h1>Create Team</h1>
+      <form id="createTeam_teamForm">
+        <div class="row">
+          <div class="col-sm-6">
+            <label for="name">Team Name:</label>
+              <div class="form-group">
+              <input type="text" class="form-control" name="name" required>
+            </div>
+          </div>
+
+          <input id="createTeam_teamForm_eventID" type="hidden" name="event_id">
+
+          <div class="col-sm-6 col-sm-offset-6">
+            <div class="btn-wrap">
+              <input type="submit" name="Create" value="Create">
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="clearfix"></div>
+  </section>
+
+  <section id="editTeam">
+    <!-- Edit team stuff. click for shooters. -->
+    <div class="col-xs-3 col-sm-1 header_backButton"><button data-nav="#teamsHome" class="small"><<</button></div>
+    <div class="clearfix"></div>
+    <div class="container">
+      <h1>Edit Team</h1>
+      <form id="editTeam_teamForm">
+
+          <div class="col-sm-6">
+            <label for="name">Team Name:</label>
+            <input type="text" name="new_name" required>
+          </div>
+
+          <input id="editTeam_teamForm_eventID" type="hidden" name="event_id">
+          <input id="editTeam_teamForm_oldName" type="hidden" name="old_name">
+
+          <div class="col-sm-6 col-sm-offset-6">
+            <div class="btn-wrap">
+              <input type="submit" name="Update" value="Update">
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-sm-offset-6">
+            <div class="btn-wrap"><a class="btn" onclick="deleteTeam();">Delete Team</a></div>
+          </div>
+      </form>
+    </div>
+    <div class="clearfix"></div>
+  </section>
+
+  <section id="teamDetails">
+    <!-- Edit team stuff. click for shooters. -->
+    <div class="col-xs-3 col-sm-1 header_backButton">
+      <!--<button data-nav="#teamsHome" class="small"><<</button></div>-->
+      <a data-nav="#teamsHome" class="button-back"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+    </div>
+    <div class="clearfix"></div>
+    <div class="container">
+      <h1 id="teamDetails_teamTitle">Team Details</h1>
+      <div class="row" id="teamDetails_shooterList">
+        <div class="col-sm-6"><p>No Shooters Found</p></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="btn-wrap btn-wrap"><button data-nav="#createShooter">Create Shooter</button></div>
+        </div>
+        <div class="col-sm-6">
+          <div class="btn-wrap"><button data-nav="#editTeam">Edit Team</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </section>
+
+  <section id="createShooter">
+    <!-- Edit team stuff. click for shooters. -->
+    <div class="col-xs-3 col-sm-1 header_backButton">
+      <!--<button data-nav="#teamDetails" class="small"><<</button></div>-->
+      <a data-nav="#teamDetails" class="button-back"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+    </div>
+    <div class="clearfix"></div>
+    <div class="container">
+      <h1>Create Shooter</h1>
+      <form id="createShooter_shooterForm">
+        <div class="row">
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="first_name">First Name</label>
+                <input type="text" class="form-control" name="first_name" required>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="last_name">Last Name</label>
+              <input type="text" class="form-control" name="last_name" required>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" name="email" required>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="tel" class="form-control" name="phone" required>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="gauge">Gauge</label>
+              <input type="text" class="form-control" name="gauge" required>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="mulligans">Mulligans</label>
+              <input type="number" class="form-control" name="mulligans" min="0" required>
+            </div>
+          </div>
+
+          <input id="createShooter_shooterForm_eventID" type="hidden" name="event_id">
+          <input id="createShooter_shooterForm_team_name" type="hidden" name="team_name">
+
+          <div class="col-sm-6 col-sm-offset-6">
+            <div class="btn-wrap">
+              <input type="submit" name="Create" value="Create">
+            </div>
+          </div>
+
+        </div>
+      </form>
+    </div>
+    <div class="clearfix"></div>
+  </section>
+
+  <section id="editShooter">
+    <!-- Edit team stuff. click for shooters. -->
+    <div class="col-xs-3 col-sm-1 header_backButton"><button data-nav="#scorerList" class="small"><<</button></div>
+    <div class="clearfix"></div>
+    <div class="container">
+      <h1>Edit Shooter</h1>
+      <form id="editShooter_shooterForm">
+        <div class="row">
+
+          <div class="col-sm-6">
+            <label for="first_name">First Name</label>
+            <input type="text" name="first_name" required>
+          </div>
+
+          <div class="col-sm-6">
+            <label for="last_name">Last Name</label>
+            <input type="text" name="last_name" required>
+          </div>
+
+          <div class="col-sm-6">
+            <label for="email">Email</label>
+            <input type="email" name="email" required disabled>
+          </div>
+
+          <div class="col-sm-6">
+            <label for="phone">Phone</label>
+            <input type="tel" name="phone" required>
+          </div>
+
+          <div class="col-sm-6">
+            <label for="gauge">Gauge</label>
+            <input type="text" name="gauge" required>
+          </div>
+
+          <div class="col-sm-6">
+            <label for="mulligans">Mulligans</label>
+            <input type="number" name="mulligans" min="0" required>
+          </div>
+
+          <div class="col-sm-6">
+            <label for="new_team_name">New Team</label>
+            <select name="new_team_name">
+              <option value="Current Team">Current Team</option>
+            </select>
+          </div>
+
+          <input type="hidden" name="event_id">
+          <input type="hidden" name="old_team_name">
+
+          <div class="col-sm-6 col-sm-offset-6">
+            <div class="btn-wrap">
+              <input type="submit" name="Update" value="Update">
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-sm-offset-6">
+            <div class="btn-wrap"><a class="btn" onclick="deleteShooter();">Delete Shooter</a></div>
+          </div>
+
+        </div>
+      </form>
+    </div>
+    <div class="clearfix"></div>
+  </section>
+
+  <section id="shooterHome">
+    <!-- Edit shooter info. -->
+    <div class="col-xs-3 col-sm-1 header_backButton">
+      <!--<button data-nav="#teamDetails" class="small"><<</button></div>-->
+      <a data-nav="#teamDetails" class="button-back"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+    </div>
+    <div class="container">
+      <h1>Shooter</h1>
+      <div class="row" id="shooterHome_shooterDetails">
+      </div>
+      <div class="col-sm-6"><p><div class="btn-wrap"><button data-nav="#shooterScore">Score Breakdown</button></div></div>
+      <div class="col-sm-6"><p><div class="btn-wrap"><button data-nav="#editShooter">Edit Shooter</button></div></div>
+    </div>
+    <div class="clearfix"></div>
+  </section>
+
+  <section id="shooterScore">
+    <div class="col-xs-3 col-sm-1 header_backButton">
+      <!--<button data-nav="#shooterHome" class="small"><<</button></div>-->
+      <a data-nav="#shooterHome" class="button-back"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+    </div>
+    <div class="container">
+      <h1>Station Breakdown</h1>
+      <div class="row" id="shooterScore_stationList">
+        <div class="col-sm-6"><p>No Stations Found</p></div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </section>
+
+  <section id="scorerList">
+    <!-- enter email and event id -->
+    <div class="col-xs-3 col-sm-1 header_backButton">
+      <!--<button data-nav="#eventHome" class="small"><<</button></div>-->
+      <a data-nav="#eventHome" class="button-back"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+    </div>
+    <div class="container">
+      <h1>Scorers</h1>
+      <div class="row" id="scorerList_scorers">
+        <div class="col-sm-6"><p>No Scorers Found</p></div>
+      </div>
+      <div class="row">
+        <div class=" col-sm-6 col-sm-offset-3">
+          <div class="btn-wrap btn-wrap"><button data-nav="#createScorer">Create Scorer</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </section>
+
+  <section id="scorerDetails">
+    <!-- enter email and event id -->
+    <div class="col-xs-3 col-sm-1 header_backButton"><button data-nav="#eventHome" class="small"><<</button></div>
+    <div class="container">
+      <h1>Scorers Details</h1>
+      <div class="row" id="scorerDetails_details">
+      </div>
+      <div class="row">
+        <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
+          <div class="btn-wrap"><a class="btn" onclick="deleteScorer();">Delete Scorer</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </section>
+
+  <section id="createScorer">
+    <!-- Edit team stuff. click for shooters. -->
+    <div class="col-xs-3 col-sm-1 header_backButton">
+      <!--<button data-nav="#scorerList" class="small"><<</button></div>-->
+      <a data-nav="#scorerList" class="button-back"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+    </div>
+    <div class="clearfix"></div>
+    <div class="container">
+      <h1>Create Scorer</h1>
+      <form id="createScorer_scorerForm">
+        <div class="row">
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="first_name">First Name</label>
+              <input type="text" class="form-control" name="first_name" required>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="last_name">Last Name</label>
+              <input type="text" class="form-control" name="last_name" required>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" name="email" required>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="tel" class="form-control" name="phone" required>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="text" class="form-control" name="password" required>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="station_num">Station</label>
+              <input type="number" class="form-control" name="station_num" min="1" required>
+            </div>
+          </div>
+
+          <input id="createScorer_scorerForm_eventID" type="hidden" name="event_id">
+
+          <div class="col-sm-6 col-sm-offset-6">
+            <div class="btn-wrap">
+              <input type="submit" name="Create" value="Create">
+            </div>
+          </div>
+
+        </div>
+      </form>
+    </div>
+    <div class="clearfix"></div>
+  </section>
+
+  <section id="scorerEdit">
+    <!-- Edit team stuff. click for shooters. -->
+    <div class="col-xs-3 col-sm-1 header_backButton">
+      <!--<button data-nav="#scorerList" class="small"><<</button></div>-->
+      <a data-nav="#myEvents" class="button-back"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+    </div>
+    <div class="clearfix"></div>
+    <div class="container">
+      <h1>Update Scorer</h1>
+      <form id="scorerEdit_update">
+        <div class="row">
+
+          <div class="col-sm-6">
+            <label for="first_name">First Name</label>
+            <input type="text" name="first_name">
+          </div>
+
+          <div class="col-sm-6">
+            <label for="last_name">Last Name</label>
+            <input type="text" name="last_name">
+          </div>
+
+          <div class="col-sm-6">
+            <label for="email">Email</label>
+            <input type="email" name="email" required disabled>
+          </div>
+
+          <div class="col-sm-6">
+            <label for="phone">Phone</label>
+            <input type="tel" name="phone">
+          </div>
+
+          <div class="col-sm-6">
+            <label for="password">Password</label>
+            <input type="text" name="password">
+          </div>
+
+          <div class="col-sm-6">
+            <label for="station_num">Station</label>
+            <input type="number" name="station_num" min="1">
+          </div>
+
+          <div class="col-sm-6 col-sm-offset-6">
+            <div class="btn-wrap">
+              <input type="submit" name="Update" value="Update">
+            </div>
+          </div>
+
+        </div>
+      </form>
+    </div>
+    <div class="clearfix"></div>
+  </section>
+
+  <!-- scorer screens -->
+
+  <section id="scorerLogin">
+    <div class="col-xs-3 col-sm-1 header_backButton">
+      <!--<button data-nav="#welcomeScreen" class="small"><<</button></div>-->
+      <a data-nav="#welcomeScreen" class="button-back"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+    </div>
+    <!-- enter email and event id -->
+    <div class="container">
+      <h1>Scorer Login</h1>
+      <div class="row">
+        <form id="scorerLogin_loginForm">
+
+          <div class="col-sm-6">
+            <div class="form-group">
+                <input type="email" placeholder="Email" class="form-control" name="email" required>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <input type="password" placeholder="Password" class="form-control" name="password">
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-sm-offset-6">
+            <div class="btn-wrap">
+              <input type="submit" name="Login" value="Login">
+            </div>
+          </div>
+
+        </form>
+
+<!--
+        <form id="scorerLogin_loginForm">
+          <div class="col-sm-6">
+            <label for="first_name">First Name</label>
+            <input type="text" placeholder="First Name" name="first_name" required>
+          </div>
+
+          <div class="col-sm-6">
+            <label for="last_name">Last Name</label>
+            <input type="text" placeholder="Last Name" name="last_name" required>
+          </div>
+
+          <div class="col-sm-6">
+            <label for="email">Email</label>
+            <input type="email" placeholder="Email" name="email" required>
+          </div>
+
+          <div class="col-sm-6">
+            <label for="phone">Phone</label>
+            <input type="phone" placeholder="Phone" name="phone" required>
+          </div>
+
+          <div class="col-sm-6">
+            <label for="password">Password</label>
+            <input type="password" placeholder="Password" name="password" required>
+          </div>
+        </form> -->
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </section>
+
+  <section id="scorerStations">
+    <div class="col-xs-3 col-sm-1 header_backButton">
+      <!--<button data-nav="#eventHome" class="small"><<</button>-->
+      <a data-nav="#eventHome" class="button-back"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+    </div>
+    <!-- Station drop down for stations they are assigned. Team drop down for filtering of shooter drop down. Then check boxes for hit/miss. -->
+    <div class="container">
+      <h1>Your Stations</h1>
+      <div class="row" id="scorerStations_stationList">
+        <div class="col-sm-6"><p>No Stations Found</p></div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </section>
+
+  <section id="scorerEntry">
+    <div class="col-xs-3 col-sm-1 header_backButton">
+      <!--<button data-nav="#scorerStations" class="small"><<</button>-->
+      <a data-nav="#scorerStations" class="button-back"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+    </div>
+    <!-- Station drop down for stations they are assigned. Team drop down for filtering of shooter drop down. Then check boxes for hit/miss. -->
+    <div class="container">
+      <h1>Score Shooters</h1>
+      <div class="row" id="scorerEntry_stationList">
+        <div class="col-sm-6"><p>No Shooters Found</p></div>
+      </div>
+      <div class="row" id="scorerEntry_scoreEntry">
+        <div class="col-sm-12">
+          <p><span id="stationInfo"></span></p>
+        </div>
+        <form>
+          <div class="col-xs-6">
+            <input type="number" min="0" max="0" name="shooterScore" id="scorerEntry_scoreEntry_shooterScore" value="0">
+          </div>
+          <div class="col-xs-6">
+            <button class="hit_button">HIT!</button>
+          </div>
+          <div class=" col-sm-6 col-offset-3">
+            <button class="updateScore">Update Shooter Score</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </section>
+
+  <!-- global screens -->
+
+  <section id="helpPage">
+    <!-- Explain how tf to use this app -->
+    <div class="container">
+      <h1>Help Page</h1>
+      <h3>What is Lorem Ipsum?</h3>
+      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+      <h3>Where does it come from?</h3>
+      <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
+      <p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>
+      <h3>Why do we use it?</h3>
+      <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+    </div>
+    <div class="clearfix"></div>
+  </section>
+
+  <div id="toaster">Message</div>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+/*------------------------------------*\
+    $BUTTONS AND ICONS
+\*------------------------------------*/
+
+.btn, .button, button, input[type='submit'] {
+	width: 100%;
+  border: 1px solid;
+  border-color: $secondary-dark;
+  border-radius: 0;
+	padding: $pad 0;
+  color: $font-color;
+  background: white;
+  font-family: $font-family;
+  font-size: $font-size;
+  line-height: $font-aspect;
+  transition: all .3s;
+  &.small {
+    border: 0;
+    padding: 5px;
+	}
+}
+
+.btn-wrap {
+	margin-top: $pad;
+  border: 1px solid $secondary-dark;
+  padding: 2px;
+  transition: all .3s;
+  &:hover{
+    background: $secondary-dark;
+    .btn, .button, button, input[type='submit'] {
+      background: $secondary-dark;
+      border-color: white;
+      color: white;
+    }
+  }
+}
+
+.button-back {
+	padding-top: 6px;
+	padding-bottom: 5px;
+	display: block;
+	i.fa {
+		color: white;
+	}
+	&:hover {
+		i.fa {
+			color: white;
+		}
+	}
+}
+
+.button-login {
+  background-color: white;
+  text-transform: uppercase;
+  font-size: 35px;
+  border: 1px solid $grey;
+  margin: $pad 0;
+  span {
+    display: block;
+    text-transform: none;
+    font-style: italic;
+    color: $grey;
+    font-size: 16px;
+    font-weight: bold;
+  }
+}
+
+.button-create-account {
+  text-align: center;
+  margin-top: 20px;
+  display: block;
+  color: white;
+}

@@ -1,0 +1,13 @@
+/*------------------------------------*\
+    $TEXT STYLES
+\*------------------------------------*/
+
+.heading-main {
+  font-weight: 400;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  &.white {
+    color: white;
+  }
+}

@@ -1,0 +1,55 @@
+/*------------------------------------*\
+    $ELEMENT BASES
+\*------------------------------------*/
+
+
+body, p {
+	color: $font-color;
+	font-family: $font-family;
+	font-size: $font-size;
+	line-height: $font-aspect;
+}
+
+strong {
+	font-weight: 600;
+}
+
+a {
+	cursor: pointer;
+	&:hover {}
+}
+
+h1, h2, h3, h4, h5, h6 {}
+
+h1 {
+	text-transform: uppercase;
+	font-size: 25px;
+}
+
+h2 {}
+
+h3 {
+	font-size: 20px;
+}
+
+h4 {}
+
+h5 {}
+
+h6 {}
+
+hr {}
+
+ul {}
+
+li:before {}
+
+blockquote {
+	p {}
+	cite {}
+}
+
+section {
+	padding-bottom: 2*$pad;
+	min-height: 100vh;
+}
