@@ -98,7 +98,7 @@ CREATE TABLE scorer
     phone VARCHAR (20),
     password VARCHAR (20),
     station_num INT,
-    PRIMARY KEY (email, event_id),
+    PRIMARY KEY (email, event_id, station_num),
     FOREIGN KEY (event_id) REFERENCES event (id)
       ON DELETE CASCADE
       ON UPDATE CASCADE

@@ -6,6 +6,10 @@ input, select {
 	width: 100%;
 }
 
+input[type='checkbox'], input[type='radio']{
+	width: auto;
+}
+
 .form-group {
 	.form-control {
 		border-radius: 0;

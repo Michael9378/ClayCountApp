@@ -1206,6 +1206,32 @@ function editShooter( form ){
 	});
 }
 
+function ajaxUpdateMulligans(data, success, failure){
+	// TODO
+	var shooter_email = data.email;
+	var team_name = data.team_name;
+	var shooter_mulligans = data.mulligans;
+	var event_id = data.event_id;
+
+	$.ajax({
+		url: url + "set/person/update_person.php?event_id=" + event_id + "&old_team_name=" + team_name + "&email=" + shooter_email + "&mulligans="+ shooter_mulligans,
+		success: function( result ){
+			// what to do with result from api call
+	  },
+	  // error function can stay same for all calls.
+	  error: function( jqXHR, textStatus, errorThrown ){
+	  	// if status is not zero, we have an error we didn't expect
+	  	if( jqXHR.status ) {
+	  		alert( textStatus + " " + jqXHR.status + " " + errorThrown );
+	  	}
+	  	// if status is zero, no internet
+	  	else {
+	  		alert( "No internet connection, cannot update event info at this time." );
+	  	}
+	  }
+	});
+}
+
 
 function deleteShooter(){
 	if( confirm("Are you sure you wish to delete this shooter? This will remove all scores associated with this shooter. \nThis cannot be undone.") ){
@@ -1255,9 +1281,10 @@ function deleteShooter(){
 
 function createScorer( form ){
 	$(form).find("#createScorer_scorerForm_eventID").val(cur_event.id);
+	var data = getValidInputs( form );
 	// submit team to server
 	$.ajax({
-		url: url + "set/scorer/add_scorer.php?" + $( form ).serialize(),
+		url: url + "set/scorer/add_scorer.php?" + data,
 		success: function( result ){
 			result = JSON.parse( result );
 			if( result === true ){
@@ -1289,7 +1316,7 @@ function createScorer( form ){
 function editScorer( form ){
 	toast("Loading...");
 	// submit team to server
-	data = getValidInputs( form );
+	var data = getValidInputs( form );
 	$.ajax({
 		url: url + "set/scorer/update_scorer.php?" + data,
 		success: function( result ){
@@ -1627,12 +1654,23 @@ function updateCreateStations(){
 		str += '<div class="form-group">';
 		str += '<h3>Station ' + num + '</h3>';
     str += '<label for="num_stations">Number of Shots:</label>';
-    str += '<input class="station-details form-control" min="1" max="50" value="18" type="number" name="num_hits[]" data-stationNum="' + num + '" required>';
+    str += '<input class="station-details form-control" min="1" max="50" value="8" type="number" name="num_hits[]" data-stationNum="' + num + '" required>';
 		str += '</div>';
 		str += '</div>';
 	}
 	$("#createEvent_eventInfo_stationDetails").html(str);
 	$("#createEvent_eventInfo input[type=submit]").removeAttr("disabled");
+}
+
+
+function updateScorerStationsSelect(){
+	str = "";
+	var stations = cur_event.stations.length;
+	for( var i = 0; i < stations; i++ ){
+		var num = i + 1;
+		str += '<div class="checkbox-group"><p><input type="checkbox" name="station_nums[]" value="'+ (i + 1) +'"> Station ' + (i + 1) + '</p></div>';
+	}
+	$("#createScorer_scorerForm_stations").html(str);
 }
 
 // populate scorer list
@@ -1675,7 +1713,7 @@ function updateShooterSelect(){
 	}
 	html += '</select>';
 	html += '</div>';
-	$("#stationInfo").html("Total Clays: " + cur_station.total_hits);
+	$("#stationInfo").html("Total Clays: " + cur_station.total_hits + "<br>Max Mulligans: " + cur_event.max_mulligans );
 	$("#scorerEntry_stationList").html(html);
 	enableEventHandlers();
 }
@@ -1934,6 +1972,7 @@ function enableEventHandlers() {
 	$("[data-nav='#scorerList']").click(function( e ){
 		e.preventDefault();
 		updateScorerList();
+		updateScorerStationsSelect();
 		if( local_user.isAdmin )
 			navUpdate("admin");
 		else
@@ -1992,6 +2031,27 @@ function enableEventHandlers() {
 		// try to save everything in the queue.
 		emptyFunctionQ();
 	});
+
+	$("#scorerEntry_scoreEntry .mulligan_button").unbind('click');
+	$("#scorerEntry_scoreEntry .mulligan_button").click(function(e){
+		e.preventDefault();
+		// update local person score
+		cur_person.mulligans = (parseInt( cur_person.mulligans ) - 1).toString();
+		// TODO
+		// create data object for updating database
+		var upstation = {};
+		shooter_data.event_id = cur_event.id;
+		shooter_data.mulligans = cur_person.mulligans;
+		shooter_data.email = cur_person.email;
+		shooter_data.team_name = cur_person.team_name;
+		// add to function queue
+		var obj = {};
+		obj.funcName = "ajaxUpdateMulligans";
+		obj.data = shooter_data;
+		functionQueue.push( obj );
+		// try to save everything in the queue.
+		emptyFunctionQ();
+	});
 }
 
 // update nav items based on credentials
@@ -2042,6 +2102,15 @@ function emptyFunctionQ(){
 				failureFlag += updateAdmin( functionQueue[i].data, function(){
 					// update worked
 					navToSection("#myEvents");
+				}, function(){
+					// update failed. Add to keepArray to call again
+					keepArray.push( functionQueue[i] );
+				} );
+				break;
+			case 'ajaxUpdateMulligans':
+				failureFlag += ajaxUpdateMulligans( functionQueue[i].data, function(){
+					// update worked
+					toast("Mulligan Removed");
 				}, function(){
 					// update failed. Add to keepArray to call again
 					keepArray.push( functionQueue[i] );

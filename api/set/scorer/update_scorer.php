@@ -10,7 +10,7 @@ $response = "ERROR: Inputs improperly defined.";
 //we have key
 if( isset( $_GET['email'] ) ) {
 	//we are changing a parameter
-	if(isset( $_GET['first_name'] ) || isset( $_GET['last_name'] ) || isset( $_GET['phone'] ) || isset( $_GET['station_num'] ) ) {
+	if(isset( $_GET['first_name'] ) || isset( $_GET['last_name'] ) || isset( $_GET['phone'] ) ) {
 		$sql = "UPDATE `scorer` SET ";
 		//if statements for the update
 		if( isset( $_GET["first_name"] ) )
@@ -19,8 +19,6 @@ if( isset( $_GET['email'] ) ) {
 			$sql .= "last_name = '" . $_GET['last_name'] . "' ,";
 		if( isset( $_GET['phone'] ) )
 			$sql .= "phone = '" . $_GET['phone'] . "' ,";
-		if( isset( $_GET['station_num'] ) )
-			$sql .= "station_num = '" . $_GET['station_num'] . "' ,";
 
 		// drop last comma
 		$sql = substr($sql, 0, -1);

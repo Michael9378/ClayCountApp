@@ -9,7 +9,7 @@ require "../h.php";
 $response = "ERROR: Inputs improperly defined.";
 
 // check all parameters are present
-if( isset( $_GET['event_id'] ) && isset( $_GET['first_name'] ) && isset( $_GET['last_name'] ) && isset( $_GET['email'] ) && isset( $_GET['phone'] ) && isset( $_GET['station_num'] ) && isset( $_GET['station_num'] ) ) {
+if( isset( $_GET['event_id'] ) && isset( $_GET['first_name'] ) && isset( $_GET['last_name'] ) && isset( $_GET['email'] ) && isset( $_GET['phone'] ) && isset( $_GET['station_nums'] ) ) {
 	// set all parameters
 	$event_id = $_GET['event_id'];
 	$first_name = $_GET['first_name'];
@@ -17,7 +17,7 @@ if( isset( $_GET['event_id'] ) && isset( $_GET['first_name'] ) && isset( $_GET['
 	$email = $_GET['email'];
 	$phone = $_GET['phone'];
 	$password = $_GET['password'];
-	$station_num = $_GET['station_num'];
+	$station_nums = $_GET['station_nums'];
 
 	// check if scorer already exists
 	$requested_scorer = json_decode( file_get_contents( 'http://'.$_SERVER['HTTP_HOST']."/api/get/scorer/get_scorer.php?email=".$email."&event_id=".$event_id ) );
@@ -25,8 +25,12 @@ if( isset( $_GET['event_id'] ) && isset( $_GET['first_name'] ) && isset( $_GET['
 		$response = "ERROR: Scorer with that email already exists for this event.";
 	else {
 		// build query
-		$sql = "INSERT INTO `scorer` (`event_id`, `first_name`, `last_name`, `email`, `phone`, `password`, `station_num`)";
-		$sql .= "VALUES ('".$event_id."','".$first_name."','".$last_name."','".$email."','".$phone."','".$password."','".$station_num."');";
+		$sql = "INSERT INTO `scorer` (`event_id`, `first_name`, `last_name`, `email`, `phone`, `password`, `station_num`) VALUES";
+		foreach( $station_nums as $station_num ){
+			$sql .= "('".$event_id."','".$first_name."','".$last_name."','".$email."','".$phone."','".$password."',".$station_num."),";
+		}
+		$sql = substr($sql, 0, -1);
+		$sql .= ";";
 		// send query
 		$response = sql_set_query($sql);
 	}
