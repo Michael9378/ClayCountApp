@@ -2,10 +2,10 @@
 // Connect to database.
 // hide this file from github
 
-$dbservername = "mariadb-133.wc1.ord1.stabletransit.com";
-$dbname = "1031170_ccount";
-$dbusername = "1031170_clayuser";
-$dbpassword = "prAswEqe@ru4";
+$dbservername = "mariadb-023.wc1.ord1.stabletransit.com";
+$dbname = "702637_claycounter";
+$dbusername = "702637_dbuser";
+$dbpassword = "Count_Me_In_123";
 // Create connection
 $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 

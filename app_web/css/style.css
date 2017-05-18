@@ -74,11 +74,6 @@ button[disabled], html input[disabled] {
   display: block;
   color: white; }
 
-.hit-wrapper {
-  margin-top: 0; }
-  .hit-wrapper .hit_button {
-    padding: 5.58px 0; }
-
 /*********** scss/global/containers ***********/
 /*------------------------------------*\
     $CONTAINER STYLES

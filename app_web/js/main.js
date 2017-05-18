@@ -19,7 +19,7 @@ Check to make sure we aren't overwritting relevant info with NULL info.
 */
 
 // base url to api
-var url = "http://claycount.com.php56-17.ord1-1.websitetestlink.com/api/";
+var url = "http://claycounter.com/api/";
 
 // save the current user that is logged in
 var local_user = getLocalVar("user");
@@ -1216,7 +1216,10 @@ function ajaxUpdateMulligans(data, success, failure){
 	$.ajax({
 		url: url + "set/person/update_person.php?event_id=" + event_id + "&old_team_name=" + team_name + "&email=" + shooter_email + "&mulligans="+ shooter_mulligans,
 		success: function( result ){
-			// what to do with result from api call
+			if( result )
+				success();
+			else
+				failure();
 	  },
 	  // error function can stay same for all calls.
 	  error: function( jqXHR, textStatus, errorThrown ){
@@ -1228,6 +1231,7 @@ function ajaxUpdateMulligans(data, success, failure){
 	  	else {
 	  		alert( "No internet connection, cannot update event info at this time." );
 	  	}
+	  	failure();
 	  }
 	});
 }
@@ -1551,7 +1555,10 @@ function populateEditShooter(){
 }
 
 function updateScorerStationList(){
-	var html = "";
+	if( !cur_event.stations.length )
+		html = "No shooters found for any of your stations. Contact event admin: " + cur_event.admin_email;
+	else
+		var html = "";
 	var stations = cur_event.stations;
 	for( var i = 0; i < stations.length; i++ ){
 		// this should only be 1 in theory as 1 scorer to 1 stations, but unclear
@@ -2036,13 +2043,17 @@ function enableEventHandlers() {
 	$("#scorerEntry_scoreEntry .mulligan_button").click(function(e){
 		e.preventDefault();
 		// update local person score
+		if( cur_person.mulligans <= 0 ){
+			alert("No mulligans left.");
+			return 0;
+		}
 		cur_person.mulligans = (parseInt( cur_person.mulligans ) - 1).toString();
 		// TODO
 		// create data object for updating database
-		var upstation = {};
+		var shooter_data = {};
 		shooter_data.event_id = cur_event.id;
 		shooter_data.mulligans = cur_person.mulligans;
-		shooter_data.email = cur_person.email;
+		shooter_data.email = cur_person.person_email;
 		shooter_data.team_name = cur_person.team_name;
 		// add to function queue
 		var obj = {};
@@ -2108,7 +2119,7 @@ function emptyFunctionQ(){
 				} );
 				break;
 			case 'ajaxUpdateMulligans':
-				failureFlag += ajaxUpdateMulligans( functionQueue[i].data, function(){
+				ajaxUpdateMulligans( functionQueue[i].data, function(){
 					// update worked
 					toast("Mulligan Removed");
 				}, function(){
